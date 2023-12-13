@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class NewProductScreen extends StatelessWidget {
   const NewProductScreen({super.key});
@@ -31,8 +31,18 @@ class NewProductScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     IconButton(
-                      onPressed: () {
-                        Get.to(() => const NewProductScreen());
+                      onPressed: () async {
+                        ImagePicker _picker = ImagePicker();
+                        final XFile? _image = await _picker.pickImage(
+                            source: ImageSource.gallery);
+                        if (_image == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('No Image was selected.'),
+                            ),
+                          );
+                        }
+                        if (_image != null) {}
                       },
                       icon: const Icon(
                         Icons.add_circle,
@@ -69,9 +79,52 @@ class NewProductScreen extends StatelessWidget {
               height: 20,
             ),
             _buildSlider('Price'),
+            _buildSlider('Quantity'),
+            const SizedBox(
+              height: 20,
+            ),
+            _buildCheckbox('Recommended'),
+            _buildCheckbox('Popular'),
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+              ),
+              child: const Text(
+                'Save',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            )
           ],
         ),
       ),
+    );
+  }
+
+  Row _buildCheckbox(String title) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 125,
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Checkbox(
+          value: true,
+          checkColor: Colors.black,
+          activeColor: Colors.black12,
+          onChanged: (value) {},
+        ),
+      ],
     );
   }
 
