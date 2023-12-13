@@ -1,8 +1,12 @@
+import 'package:ecommerce_backend/controllers/controller.dart';
 import 'package:ecommerce_backend/models/models.dart';
+import 'package:ecommerce_backend/screens/new_product_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProductScreen extends StatelessWidget {
-  const ProductScreen({super.key});
+  final ProductController productController = Get.put(ProductController());
+  ProductScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +26,46 @@ class ProductScreen extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
+            SizedBox(
+              height: 100,
+              child: Card(
+                margin: EdgeInsets.zero,
+                color: Colors.black,
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Get.to(() => const NewProductScreen());
+                      },
+                      icon: const Icon(
+                        Icons.add_circle,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const Text(
+                      "Add a New Product",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Expanded(
               child: ListView.builder(
-                  itemCount: Product.products.length,
+                  itemCount: productController.products.length,
                   itemBuilder: (context, index) {
-                    return SizedBox(
-                      height: 210,
-                      child: ProductCard(product: Product.products[index]),
+                    return Obx(
+                      () => SizedBox(
+                        height: 210,
+                        child: ProductCard(
+                          product: productController.products[index],
+                          index: index,
+                        ),
+                      ),
                     );
                   }),
             ),
@@ -41,7 +78,11 @@ class ProductScreen extends StatelessWidget {
 
 class ProductCard extends StatelessWidget {
   final Product product;
-  const ProductCard({super.key, required this.product});
+  final int index;
+
+  ProductCard({super.key, required this.product, required this.index});
+
+  final ProductController productController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +150,13 @@ class ProductCard extends StatelessWidget {
                               activeColor: Colors.black,
                               inactiveColor: Colors.black12,
                               value: product.price,
-                              onChanged: (value) {},
+                              onChanged: (value) {
+                                productController.updateProductPrice(
+                                  index,
+                                  product,
+                                  value,
+                                );
+                              },
                             ),
                           ),
                           Text(
@@ -141,12 +188,18 @@ class ProductCard extends StatelessWidget {
                               divisions: 10,
                               activeColor: Colors.black,
                               inactiveColor: Colors.black12,
-                              value: product.price,
-                              onChanged: (value) {},
+                              value: product.quantity.toDouble(),
+                              onChanged: (value) {
+                                productController.updateProductQuantity(
+                                  index,
+                                  product,
+                                  value.toInt(),
+                                );
+                              },
                             ),
                           ),
                           Text(
-                            '\$${product.quantity.toInt()}',
+                            '${product.quantity.toInt()}',
                             style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
