@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'E-Commerce Admin',
+          'Collective Froba Admin',
           style: TextStyle(
             color: Colors.white,
           ),
