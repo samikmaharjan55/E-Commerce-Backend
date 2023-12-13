@@ -5,6 +5,10 @@ import '../models/models.dart';
 class ProductController extends GetxController {
   List<Product> products = Product.products.obs;
 
+  var newProduct = {}.obs;
+  get price => newProduct['price'];
+  get quantity => newProduct['quantity'];
+
   void updateProductPrice(
     int index,
     Product product,

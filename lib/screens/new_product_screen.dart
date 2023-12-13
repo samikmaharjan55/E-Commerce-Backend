@@ -1,9 +1,12 @@
+import 'package:ecommerce_backend/controllers/controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class NewProductScreen extends StatelessWidget {
-  const NewProductScreen({super.key});
+  NewProductScreen({super.key});
 
+  final ProductController productController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,8 +81,18 @@ class NewProductScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            _buildSlider('Price'),
-            _buildSlider('Quantity'),
+            _buildSlider(
+              'Price',
+              'price',
+              productController,
+              productController.price,
+            ),
+            _buildSlider(
+              'Quantity',
+              'quantity',
+              productController,
+              productController.quantity,
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -128,7 +141,12 @@ class NewProductScreen extends StatelessWidget {
     );
   }
 
-  Row _buildSlider(String title) {
+  Row _buildSlider(
+    String title,
+    String name,
+    ProductController productController,
+    double? controllerValue,
+  ) {
     return Row(
       children: [
         SizedBox(
@@ -148,8 +166,14 @@ class NewProductScreen extends StatelessWidget {
             divisions: 10,
             activeColor: Colors.black,
             inactiveColor: Colors.black12,
-            value: 0,
-            onChanged: (value) {},
+            value: (controllerValue == null) ? 0 : controllerValue,
+            onChanged: (value) {
+              productController.newProduct.update(
+                name,
+                (_) => value,
+                ifAbsent: () => value,
+              );
+            },
           ),
         ),
       ],
