@@ -8,6 +8,8 @@ class ProductController extends GetxController {
   var newProduct = {}.obs;
   get price => newProduct['price'];
   get quantity => newProduct['quantity'];
+  get isRecommended => newProduct['isRecommended'];
+  get isPopular => newProduct['isPopular'];
 
   void updateProductPrice(
     int index,

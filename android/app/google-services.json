@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "845264742378",
+    "project_id": "collective-froba",
+    "storage_bucket": "collective-froba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845264742378:android:3e0fd53ff6a477a20bf493",
+        "android_client_info": {
+          "package_name": "com.cf.collective_froba"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcOZCNDB5n6Rs7ioPRcZWvjso4Z1YHleE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845264742378:android:7f8753efca4064b90bf493",
+        "android_client_info": {
+          "package_name": "com.cf.ecommerce_backend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcOZCNDB5n6Rs7ioPRcZWvjso4Z1YHleE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
