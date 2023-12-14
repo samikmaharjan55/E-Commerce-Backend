@@ -35,7 +35,7 @@ class ProductScreen extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Get.to(() => NewProductScreen());
+                        Get.to(() => const NewProductScreen());
                       },
                       icon: const Icon(
                         Icons.add_circle,

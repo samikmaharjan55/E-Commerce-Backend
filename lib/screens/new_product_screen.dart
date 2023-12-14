@@ -1,12 +1,21 @@
 import 'package:ecommerce_backend/controllers/controller.dart';
+import 'package:ecommerce_backend/services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class NewProductScreen extends StatelessWidget {
-  NewProductScreen({super.key});
+class NewProductScreen extends StatefulWidget {
+  const NewProductScreen({super.key});
 
+  @override
+  State<NewProductScreen> createState() => _NewProductScreenState();
+}
+
+class _NewProductScreenState extends State<NewProductScreen> {
   final ProductController productController = Get.find();
+
+  StorageService storage = StorageService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +55,16 @@ class NewProductScreen extends StatelessWidget {
                               ),
                             );
                           }
-                          if (_image != null) {}
+                          if (_image != null) {
+                            await storage.uploadImage(_image);
+                            var imageUrl =
+                                await storage.getDownloadURL(_image.name);
+                            productController.newProduct.update(
+                              'imageUrl',
+                              (_) => imageUrl,
+                              ifAbsent: () => imageUrl,
+                            );
+                          }
                         },
                         icon: const Icon(
                           Icons.add_circle,
@@ -113,7 +131,7 @@ class NewProductScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  print(productController.newProduct);
+                  //print(productController.newProduct);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
