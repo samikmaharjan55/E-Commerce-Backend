@@ -1,4 +1,6 @@
 import 'package:ecommerce_backend/controllers/controller.dart';
+import 'package:ecommerce_backend/models/product_model.dart';
+import 'package:ecommerce_backend/services/database_service.dart';
 import 'package:ecommerce_backend/services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +17,7 @@ class _NewProductScreenState extends State<NewProductScreen> {
   final ProductController productController = Get.find();
 
   StorageService storage = StorageService();
-
+  DatabaseService database = DatabaseService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,7 +133,21 @@ class _NewProductScreenState extends State<NewProductScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  //print(productController.newProduct);
+                  database.addProduct(
+                    Product(
+                      id: int.parse(productController.newProduct['id']),
+                      name: productController.newProduct['name'],
+                      category: productController.newProduct['category'],
+                      description: productController.newProduct['description'],
+                      imageUrl: productController.newProduct['imageUrl'],
+                      isRecommended:
+                          productController.newProduct['isRecommended'],
+                      isPopular: productController.newProduct['isPopular'],
+                      price: productController.newProduct['price'],
+                      quantity:
+                          productController.newProduct['quantity'].toInt(),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
