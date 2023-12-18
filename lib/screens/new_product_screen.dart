@@ -54,7 +54,8 @@ class _NewProductScreenState extends State<NewProductScreen> {
                           if (_image == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('No Image was selected.'),
+                                content: Text(
+                                    'No Image was selected. Please select an image.'),
                               ),
                             );
                           }
